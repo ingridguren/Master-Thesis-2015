@@ -34,7 +34,6 @@ p("All hidden categories read", "info")
 
 # Reads the category graph
 p("Read all category links", "info")
-
 with gzip.open(categoryinputfilename, "rb") as inputfile:
     for line in inputfile:
         line = line.strip()
