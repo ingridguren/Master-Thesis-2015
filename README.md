@@ -12,8 +12,8 @@ Files needed from Wikipedia to run program:
 Run order for the programs: 
 - Find_all_hidden_categories.py
 - Find_all_redirecting_titles.py
-- Split_catlink.py
-- Remove_hiddencats.py
+- Split_categorylinks.py
+- Remove_hidden_categories.py
 - Categorygraph_builder.py
 - Articlegraph_builder.py
 - Article_path_builder-id.py
