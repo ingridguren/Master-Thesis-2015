@@ -17,6 +17,7 @@ Run order for the programs:
 - Categorygraph_builder.py
 - Articlegraph_builder.py
 - Article_path_builder-id.py
+- Find_high_inlink_outlink_number.py
 - Create_category_grades-id.py
 - Grader-id.py
 - grade_parser.py
