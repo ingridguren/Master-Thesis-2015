@@ -44,18 +44,17 @@ class Entry(object):
                 return False
         return True
 
-inputfilename = "igg-mapping-all.txt"
-
 version = 4                                     # Version of the dictionary to be cleaned
 
 # Reading the dictionary
-#inputfilename = "igg-dictionary-" + str(version) + ".json"
+inputfilename = "igg-dictionary-" + str(version) + ".json"
 p("Reading json file", "info")
 with open(inputfilename, "rb") as inputfile:
     iggdictionary = yaml.load(inputfile)        # Loading the dictionary from file
 p("finished reading python json", "info")
 
 iggiabtaxonomy = "igg-iabtaxonomy" + str(version)
+iggiabtaxonomynew = "igg-iabtaxonomy" + str(version+1)
 dictionary = iggdictionary[iggiabtaxonomy]
 
 newdictionary = dict()                # Dictionary for storing the final results
@@ -304,15 +303,13 @@ iggdictionary["global-properties"]["value-normalization-flags"]="4"
 
 
 # Denne kan fjernes om du bruker igg-iabtaxonomy2 overalt: 
-iggdictionary.pop("igg-iabtaxonomy6", None)
-iggdictionary.pop("igg-iabtaxonomy7", None)
-iggdictionary.pop("igg-iabtaxonomy8", None)
+iggdictionary.pop(iggiabtaxonomy, None)
 
 # Adding the dictionary to the final dictionary
-iggdictionary["igg-iabtaxonomy9"] = newdictionary
+iggdictionary[iggiabtaxonomynew] = newdictionary
 
 # Writing the final results to file
-#outputfilename = "igg-iabdictionary-" + str(version) + ".json"
-outputfilename = "igg-iabdictionary-9.json"
+outputfilename = "igg-iabdictionary-" + str(version+1) + ".json"
+#outputfilename = "igg-iabdictionary-7.json"
 with open(outputfilename, "w") as outputfile:
     json.dump(iggdictionary, outputfile, indent=2)
