@@ -32,5 +32,5 @@ This programs created for the Master Thesis "Content Categorization for Contextu
 
 
 
-Ingrid Guren
+- Ingrid Guren
 August, 2015
