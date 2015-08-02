@@ -1,5 +1,5 @@
 # Master-Thesis-2015
-This is the programs created for the Master Thesis "Content Categorization for Contextual Advertising Using Wikipedia", by Ingrid Guren. 
+This programs created for the Master Thesis "Content Categorization for Contextual Advertising Using Wikipedia", by Ingrid Guren. 
 
 ####Files needed from Wikipedia to run program: 
 * enwiki-latest-categorylinks.sql.gz
