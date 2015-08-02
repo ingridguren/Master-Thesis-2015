@@ -2,9 +2,11 @@ import sys, os, numpy, re, fileinput, gzip, gc, time, Queue, collections, json, 
 from operator import itemgetter
 from myprint import myprint as p
 
+"""
+Program for mapping all keywords to IAB categories. 
+"""
 
 inputfilename = "articlemapping-all.txt.gz"
-
 outputcategoriesfilename = "Outputcategories"
 
 letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "restfile"]
@@ -87,41 +89,12 @@ with open("Outputcategories-2", "r") as outputcatfile:
 
 
 def writetofile(letter):
-    #global matchedarticles
     global dictionary
-    #with gzip.open("articlesmapping" + letter +".txt.gz", "wb") as outputfile: 
-        #json.dump(matchedarticles, outputfile)
-        #yaml.dump(matchedarticles, outputfile)
     with io.open("igg-mapping-" + letter + ".txt", 'w', encoding='utf8') as json_file:
         data = json.dumps(dictionary, ensure_ascii=False, encoding='utf8')
         json_file.write(unicode(data))
-        
-    """
-    with gzip.open("json-test.txt.gz", "wb") as outputfile: 
-        for matchedarticle in matchedarticles: 
-            #outputfile.write("{%s : %s}\n" %(matchedarticle, matchedarticles[matchedarticle]))
-            outputfile.write("{\"%s\": " %(matchedarticle))
-            matched = matchedarticles[matchedarticle]
-            for tiertwo in matched: 
-                if len(matched[tiertwo]) == 1: 
-                    outputfile.write("\"%s\"" %(matched[tiertwo]))
-                else: 
-                    outputfile.write("%s" %(matched[tiertwo]))
-            
-            outputfile.write("}")
-    """
     json_file.close()
-    #outputfile.close()
-    
-"""
-def writetofilenotmatched(letter):
-    global notmatchedarticles
-    with gzip.open("notmatched-"+letter +".txt.gz", "wb") as outputfile: 
-        for notmatchedarticle in notmatchedarticles: 
-            outputfile.write("{%s : %s}\n" %(notmatchedarticle, notmatchedarticles[notmatchedarticle]))
-    outputfile.close()
-"""
- 
+
 articlesfound = dict()
 
 p("Matching..", "info")
@@ -142,51 +115,35 @@ for letter in letters:
     with gzip.open(inputfilename, "rb") as inputfile: 
         for line in inputfile:
             line = line.strip()
-            # Found path
-
             if line.startswith("*"):
-              
-                splittet = line.split("\t")#line.split(" (")
-
+             
+                splittet = line.split("\t")
                 score = splittet[0][2:]
                 path = splittet[1]
-
-                #if "geography/geography by place" in path: 
-                #    print article
-                #    print path
                 for liste in regexliste: 
    
                     for regex in regexliste[liste]: 
                 
                         if regex in path: 
-                            notmatched = False
-                            
+                            notmatched = False                            
                             tier = maptotier[regex]
-                            #print "regex: %s, tier: %s" %(regex, tier)
-                            
-                            # Check if it's at the end of the path: 
                             path_end = path.split(regex)[1]
                             cats_at_end = len(path_end.split("/"))
                             if cats_at_end > 5: 
                                 continue
 
                             if article in matchedarticles: 
-                                #if tier in matchedarticles[article]: # and liste not in matchedarticles[article][tierone]: 
                                 if tier not in matchedarticles[article]: 
                                     matchedarticles[article].append(tier)
-                                #else: 
-                                #    matchedarticles[article] = [tierone]#[tierone] = [liste]
                             else: 
                                 matchedarticles[article] = [tier]
-                                #matchedarticles[article][tierone] = [liste]
 
                             # Storing all paths to see if they look correct
                             if liste in articlespercategory: 
                                 articlespercategory[liste].append(article)
                             else: 
                                 articlespercategory[liste] = [article]
-                            
-                            
+                          
                             if liste in articlesfound: 
                                 articlesfound[liste]+= 1
                             else: 
@@ -206,11 +163,6 @@ for letter in letters:
                 article = line[:-1]
                 allarticles+= 1
                 notmatched = True
-    """
-    dictionary["igg-iabtaxonomy"] = matchedarticles
-    writetofile("a")
-    break
-    """
 
 dictionary["igg-iabtaxonomy4"] = matchedarticles
 writetofile("all")
@@ -218,8 +170,6 @@ writetofile("all")
 p("Time: %.3f min" %((time.time()-starttime)/60), "info")
 
 p("Total number of articles found: %d/%d" %(len(matchedarticles), allarticles), "info")
-for category in articlesfound: 
-    p("%s: %d articles" %(category, articlesfound[category]), "info")
 
 p("Writing all results to file", "info")
 for category in articlespercategory: 
@@ -231,7 +181,4 @@ for category in articlespercategory:
         catfile.write("%s\n" %(category))
         for path in articlespercategory[category]:
             catfile.write("%s\n" %(path))
-
     catfile.close()
-
-#writetofile()
