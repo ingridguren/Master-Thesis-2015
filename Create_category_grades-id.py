@@ -4,6 +4,11 @@ import sys, os, numpy, re, fileinput, gzip, gc, time, Queue
 from myprint import myprint as p
 import idmapper
 
+"""
+Program for creating category grades. 
+The program uses ids to create the category grades. 
+"""
+
 try: 
     categoryinfofilename = sys.argv[1]
     categoriesoutputfilename = sys.argv[2]
