@@ -14,13 +14,21 @@ Run order for the programs:
 - Find_all_redirecting_titles.py
 - Split_categorylinks.py
 - Remove_hidden_categories.py
-- Categorygraph_builder.py
 - Articlegraph_builder.py
-- Article_path_builder-id.py
+- Categorygraph_builder.py
 - Find_high_inlink_outlink_number.py
-- Create_category_grades-id.py
+
+# If using ids. 
+- Article_path_builder-id.py
+- Create_category_grades-id.py 
 - Grader-id.py
-- grade_parser.py
+
+# To create the Norwegian classifier: 
+- Create-entry-pageid.py
+- Create-pageid-entry.py
+- Find_norwegian.py
+- Translate.py
+- Create-dictionary.py
 
 
 
