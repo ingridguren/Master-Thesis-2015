@@ -2,8 +2,9 @@
 import sys, os, numpy, re, fileinput, gzip, gc, time, Queue
 from myprint import myprint as p
 import idmapper
-"""
 
+"""
+Program for creating complete paths for all articles. 
 """
 try:
     categoryinfofilename = sys.argv[1]
